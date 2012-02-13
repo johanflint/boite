@@ -10,7 +10,7 @@ import java.io.FileNotFoundException
 class FailureTest extends FlatSpec with ShouldMatchers  {
   val Message = "Exception thrown"
   val Throwable = new Exception
-  val FileNotFoundException = new FileNotFoundException
+  val FileNotFoundException = new FileNotFoundException(Message)
   
   val failure = new Failure(Message, Full(Throwable), null)
   
@@ -36,5 +36,9 @@ class FailureTest extends FlatSpec with ShouldMatchers  {
     failure == new Failure(Message, Full(FileNotFoundException), null) should be (false)
     
     Failure(Message) == Failure(Message + "!") should be (false)
+  }
+  
+  "Failure with a throwable" should "copy the message correctly" in {
+    Failure(FileNotFoundException).message == Message should be (true)
   }
 }
