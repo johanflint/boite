@@ -1,4 +1,5 @@
-package com.nummulus.boite
+package com.nummulus
+package boite
 
 sealed abstract class Boite[+A] {
   self =>
