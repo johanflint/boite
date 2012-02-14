@@ -51,4 +51,8 @@ class FullTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     
     verify (test) calculate(JacquesBrel)
   }
+  
+  "To list" should "return a list with one entry" in {
+    boite.toList should equal (List(JacquesBrel))
+  }
 }

@@ -58,4 +58,8 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     
     verify (test, never) calculate("")
   }
+  
+  "To list" should "return an empty list" in {
+    Empty.toList should equal (List())
+  }
 }

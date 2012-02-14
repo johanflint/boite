@@ -47,6 +47,12 @@ sealed abstract class Boite[+A] {
   def foreach[U](f: A => U): Unit = {}
   
   /**
+   * Returns a List of one element if boite is full or an empty list
+   * otherwise.
+   */
+  def toList: List[A] = List()
+  
+  /**
    * Returns {@code true} if both objects are equal based on the contents of
    * this boite. For Failures, equality is based on equivalence of failure
    * causes.
@@ -69,6 +75,8 @@ final case class Full[+A](value: A) extends Boite[A] {
   override def flatMap[B](f: A => Boite[B]): Boite[B] = f(value)
   
   override def foreach[U](f: A => U): Unit = f(value)
+  
+  override def toList: List[A] = List(value)
 }
 
 case object Empty extends BoiteVide
