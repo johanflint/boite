@@ -7,7 +7,13 @@
 
 	<name>Nummulus - Boite</name>
 	<description>A better Option than Box</description>
-
+	
+	<scm>
+		<connection>scm:git:git://github.com/nummulus/boite.git</connection>
+		<developerConnection>scm:git:git://github.com/nummulus/boite.git</developerConnection>
+		<url>https://github.com/nummulus/boite</url>
+	</scm>
+	
 	<properties>
 		<scala.version>2.9.0</scala.version>
 		<maven-scala-plugin.version>2.15.2</maven-scala-plugin.version>
