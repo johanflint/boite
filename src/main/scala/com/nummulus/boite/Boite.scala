@@ -20,6 +20,33 @@ sealed abstract class Boite[+A] {
   def openOr[B >: A](default: => B): B = default
   
   /**
+   * Applies a function to the value of the boite if it's full and returns a
+   * new boite containing the result. Returns empty otherwise.
+   * <p>
+   * Differs from flatMap in that the given function is not expected to wrap
+   * the result in a boite.
+   * 
+   * @see flatMap
+   */
+  def map[B](f: A => B): Boite[B] = Empty
+  
+  /**
+   * Applies a function to the value of the boite if it's full and returns a
+   * new boite containing the result. Returns empty otherwise.
+   * <p>
+   * Differs from map in that the given function is expected to return a boite.
+   * 
+   * @see map
+   */
+  def flatMap[B](f: A => Boite[B]): Boite[B] = Empty
+  
+  /**
+   * Applies a function to the value of boite if it's full, otherwise do 
+   * nothing.
+   */
+  def foreach[U](f: A => U): Unit = {}
+  
+  /**
    * Returns {@code true} if both objects are equal based on the contents of
    * this boite. For Failures, equality is based on equivalence of failure
    * causes.
@@ -36,6 +63,12 @@ final case class Full[+A](value: A) extends Boite[A] {
   def isEmpty = false
   
   override def openOr[B >: A](default: => B): B = value
+  
+  override def map[B](f: A => B): Boite[B] = Full(f(value))
+  
+  override def flatMap[B](f: A => Boite[B]): Boite[B] = f(value)
+  
+  override def foreach[U](f: A => U): Unit = f(value)
 }
 
 case object Empty extends BoiteVide
@@ -53,6 +86,10 @@ object Failure {
 
 sealed case class Failure(message: String, exception: Boite[Throwable], chain: Boite[Failure]) extends BoiteVide {
   type A = Nothing
+  
+  override def map[B](f: A => B): Boite[B] = this
+  
+  override def flatMap[B](f: A => Boite[B]): Boite[B] = this
   
   override def equals(other: Any): Boolean = (this, other) match {
     case (Failure(x, y, z), Failure(a, b, c)) => (x, y, z) == (a, b, c)

@@ -1,12 +1,14 @@
 package com.nummulus.boite
 
 import org.junit.runner.RunWith
+import org.mockito.Mockito._
 import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.mock.MockitoSugar
 
 @RunWith(classOf[JUnitRunner])
-class FullTest extends FlatSpec with ShouldMatchers {
+class FullTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   val JacquesBrel = "Jacques Brel"
 
   val boite = Full(JacquesBrel)
@@ -33,5 +35,20 @@ class FullTest extends FlatSpec with ShouldMatchers {
   
   "Full" should "not be Empty" in {
     boite == Empty should be (false)
+  }
+  
+  "Map the String.length function" should "return a full boite of type Int" in {
+    boite.map(s => s.length) should equal (Full(JacquesBrel.length))
+  }
+  
+  "Flat map the String.length function" should "return a full boite of type Int" in {
+    boite.flatMap(s => Full(s.length)) should equal (Full(JacquesBrel.length))
+  }
+  
+  "Foreach" should "be called on a full boite" in {
+    val test = mock[DummyTrait]
+    boite.foreach(s => test.calculate(s))
+    
+    verify (test) calculate(JacquesBrel)
   }
 }
