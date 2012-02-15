@@ -14,7 +14,7 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   val Throwable = new Exception
   val FileNotFoundException = new FileNotFoundException(Message)
   
-  val failure = new Failure(Message, Full(Throwable), null)
+  val failure = new Failure(Message, Full(Throwable))
   
   "Failure" should "be empty" in {
     failure.isEmpty should equal (true)
@@ -29,13 +29,13 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   }
   
   "Two failures with the same message and exception" should "be equal" in {
-    failure == new Failure(Message, Full(Throwable), null) should be (true)
+    failure == new Failure(Message, Full(Throwable)) should be (true)
 
     Failure(Message) == Failure(Message) should be (true)
   }
   
   "Two failures with the same message and different exceptions" should "not be equal" in {
-    failure == new Failure(Message, Full(FileNotFoundException), null) should be (false)
+    failure == new Failure(Message, Full(FileNotFoundException)) should be (false)
     
     Failure(Message) == Failure(Message + "!") should be (false)
   }
