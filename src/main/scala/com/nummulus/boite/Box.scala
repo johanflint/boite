@@ -18,7 +18,7 @@ sealed abstract class Box[+A] {
   /**
    * Returns the value of the box if it's full, else the specified default.
    */
-  def openOr[B >: A](default: => B): B = default
+  def getOrElse[B >: A](default: => B): B = default
   
   /**
    * Applies a function to the value of the box if it's full and returns a
@@ -69,7 +69,7 @@ sealed abstract class Box[+A] {
 final case class Full[+A](value: A) extends Box[A] {
   def isEmpty = false
   
-  override def openOr[B >: A](default: => B): B = value
+  override def getOrElse[B >: A](default: => B): B = value
   
   override def map[B](f: A => B): Box[B] = Full(f(value))
   
@@ -85,7 +85,7 @@ case object Empty extends BoiteVide
 sealed abstract class BoiteVide extends Box[Nothing] {
   def isEmpty = true
   
-  override def openOr[B >: Nothing](default: => B): B = default
+  override def getOrElse[B >: Nothing](default: => B): B = default
 }
 
 object Failure {

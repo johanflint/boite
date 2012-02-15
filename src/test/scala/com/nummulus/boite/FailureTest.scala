@@ -25,7 +25,7 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   }
   
   "Open or" should "return the default value on failure" in {
-    failure.openOr(404) should equal (404)
+    failure.getOrElse(404) should equal (404)
   }
   
   "Two failures with the same message and exception" should "be equal" in {

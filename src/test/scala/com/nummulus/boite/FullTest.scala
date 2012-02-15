@@ -22,7 +22,7 @@ class FullTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   }
   
   "Open or" should "return the value if full" in {
-    box.openOr("Edith Piaf") should equal (JacquesBrel)
+    box.getOrElse("Edith Piaf") should equal (JacquesBrel)
   }
   
   "Two full boxes with the same content" should "be equal" in {

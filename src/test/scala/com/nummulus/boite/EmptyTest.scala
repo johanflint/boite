@@ -18,7 +18,7 @@ class EmptyTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   }
   
   "Open or" should "return the default value if empty" in {
-    Empty.openOr(404) should equal (404)
+    Empty.getOrElse(404) should equal (404)
   }
   
   "Two empty boxes" should "be equal" in {
