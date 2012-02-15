@@ -62,4 +62,8 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   "To list" should "return an empty list" in {
     Empty.toList should equal (List())
   }
+  
+  "Failure.apply(message, throwable)" should "be equal to calling new" in {
+    Failure(Message, Throwable) should equal (failure)
+  }
 }

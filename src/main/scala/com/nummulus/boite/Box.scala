@@ -91,6 +91,7 @@ sealed abstract class BoiteVide extends Box[Nothing] {
 object Failure {
   def apply(message: String) = new Failure(message, Empty)
   def apply(throwable: Throwable) = new Failure(throwable.getMessage, Full(throwable))
+  def apply(message: String, throwable: Throwable) = new Failure(message, Full(throwable))
 }
 
 sealed case class Failure(message: String, exception: Box[Throwable]) extends BoiteVide {
