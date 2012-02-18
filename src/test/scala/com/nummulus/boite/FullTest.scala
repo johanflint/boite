@@ -25,14 +25,6 @@ class FullTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     box.getOrElse("Edith Piaf") should equal (JacquesBrel)
   }
   
-  "Two full boxes with the same content" should "be equal" in {
-    box == Full(JacquesBrel) should be (true)
-  }
-  
-  "Full and its raw value" should "be equal" in {
-    box == JacquesBrel should be (true)
-  }
-  
   "Full" should "not be Empty" in {
     box == Empty should be (false)
   }

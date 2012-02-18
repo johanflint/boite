@@ -21,10 +21,6 @@ class EmptyTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     Empty.getOrElse(404) should equal (404)
   }
   
-  "Two empty boxes" should "be equal" in {
-    Empty == Empty should be (true)
-  }
-  
   "Map" should "return Empty" in {
     Empty.map(s => s) should equal (Empty)
   }

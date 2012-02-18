@@ -60,9 +60,13 @@ sealed abstract class Box[+A] {
    */
   override def equals(other: Any): Boolean = (this, other) match {
     case (Full(x), Full(y)) => x == y
-    case (Full(x), y) => x == y
     case (x, y: AnyRef) => x eq y
     case _ => false
+  }
+  
+  override def hashCode: Int = this match {
+    case Full(x) => x.hashCode
+    case _ => super.hashCode
   }
 }
 
@@ -106,4 +110,7 @@ sealed case class Failure(message: String, exception: Box[Throwable]) extends Bo
     case (x, y: AnyRef) => x eq y
     case _ => false
   }
-} 
+  
+  override def hashCode: Int =
+    exception.hashCode + (if (message == null) 0 else 31 * message.hashCode)
+}

@@ -28,18 +28,6 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     failure.getOrElse(404) should equal (404)
   }
   
-  "Two failures with the same message and exception" should "be equal" in {
-    failure == new Failure(Message, Full(Throwable)) should be (true)
-
-    Failure(Message) == Failure(Message) should be (true)
-  }
-  
-  "Two failures with the same message and different exceptions" should "not be equal" in {
-    failure == new Failure(Message, Full(FileNotFoundException)) should be (false)
-    
-    Failure(Message) == Failure(Message + "!") should be (false)
-  }
-  
   "Failure with a throwable" should "copy the message correctly" in {
     Failure(FileNotFoundException).message == Message should be (true)
   }
