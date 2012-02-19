@@ -70,6 +70,20 @@ sealed abstract class Box[+A] {
   }
 }
 
+object Box {
+  /**
+   * A Box factory which returns a Full(f) if f is not null, Empty if it is,
+   * and a Failure if f throws an exception.
+   */
+  def apply[A](f: => A): Box[A] = try {
+      val value = f
+      if (value == null) Empty else Full(value)
+    }
+    catch {
+      case e: Exception => Failure(e)
+    }
+}
+
 final case class Full[+A](value: A) extends Box[A] {
   def isEmpty = false
   
