@@ -84,19 +84,13 @@ final case class Full[+A](value: A) extends Box[A] {
   override def toList: List[A] = List(value)
 }
 
-case object Empty extends BoiteVide
-
 sealed abstract class BoiteVide extends Box[Nothing] {
   def isEmpty = true
   
   override def getOrElse[B >: Nothing](default: => B): B = default
 }
 
-object Failure {
-  def apply(message: String) = new Failure(message, Empty)
-  def apply(throwable: Throwable) = new Failure(throwable.getMessage, Full(throwable))
-  def apply(message: String, throwable: Throwable) = new Failure(message, Full(throwable))
-}
+case object Empty extends BoiteVide
 
 sealed case class Failure(message: String, exception: Box[Throwable]) extends BoiteVide {
   type A = Nothing
@@ -113,4 +107,10 @@ sealed case class Failure(message: String, exception: Box[Throwable]) extends Bo
   
   override def hashCode: Int =
     exception.hashCode + (if (message == null) 0 else 31 * message.hashCode)
+}
+
+object Failure {
+  def apply(message: String) = new Failure(message, Empty)
+  def apply(throwable: Throwable) = new Failure(throwable.getMessage, Full(throwable))
+  def apply(message: String, throwable: Throwable) = new Failure(message, Full(throwable))
 }
