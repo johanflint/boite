@@ -11,7 +11,7 @@ sealed abstract class Box[+A] {
   def isEmpty: Boolean
   
   /**
-   * Returns {@code true} if the box contains a value, {@code false}
+   * Returns {@code true} if the box contains a value, {@code false} otherwise.
    */
   def isDefined: Boolean = !isEmpty
   
