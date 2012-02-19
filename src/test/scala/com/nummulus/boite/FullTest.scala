@@ -17,34 +17,34 @@ class FullTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     box.isEmpty should equal (false)
   }
   
-  "Full" should "be defined" in {
-    box.isDefined should equal (true)
-  }
-  
-  "Open or" should "return the value if full" in {
-    box.getOrElse("Edith Piaf") should equal (JacquesBrel)
-  }
-  
   "Full" should "not be Empty" in {
     box == Empty should be (false)
   }
   
-  "Map the String.length function" should "return a full box of type Int" in {
+  "Full" should "be defined" in {
+    box.isDefined should equal (true)
+  }
+  
+  "getOrElse" should "return the value if full" in {
+    box.getOrElse("Edith Piaf") should equal (JacquesBrel)
+  }
+  
+  "map" should "return a full box" in {
     box.map(s => s.length) should equal (Full(JacquesBrel.length))
   }
   
-  "Flat map the String.length function" should "return a full box of type Int" in {
+  "flatMap" should "return a full box" in {
     box.flatMap(s => Full(s.length)) should equal (Full(JacquesBrel.length))
   }
   
-  "Foreach" should "be called on a full box" in {
+  "foreach" should "call a function on its value" in {
     val test = mock[DummyTrait]
     box.foreach(s => test.calculate(s))
     
     verify (test) calculate(JacquesBrel)
   }
   
-  "To list" should "return a list with one entry" in {
+  "toList" should "return a list with one entry" in {
     box.toList should equal (List(JacquesBrel))
   }
 }

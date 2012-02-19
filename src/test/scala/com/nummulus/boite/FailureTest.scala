@@ -24,7 +24,7 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     failure.isDefined should equal (false)
   }
   
-  "Open or" should "return the default value on failure" in {
+  "getOrElse" should "return the default value on failure" in {
     failure.getOrElse(404) should equal (404)
   }
   
@@ -32,26 +32,26 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     Failure(FileNotFoundException).message == Message should be (true)
   }
   
-  "Map" should "return the same instance" in {
+  "map" should "return the same instance" in {
     failure.map(s => s) should equal (failure)
   }
   
-  "Flat map" should "return the same instance" in {
+  "flatMap" should "return the same instance" in {
     failure.flatMap(s => s) should equal (failure)
   }
   
-  "Foreach" should "not call anything" in {
+  "foreach" should "not call anything" in {
     val test = mock[DummyTrait]
     failure.foreach(s => test.calculate(""))
     
     verify (test, never) calculate("")
   }
   
-  "To list" should "return an empty list" in {
+  "toList" should "return an empty list" in {
     Empty.toList should equal (List())
   }
   
-  "Failure.apply(message, throwable)" should "be equal to calling new" in {
+  "Failure.apply(message, throwable)" should "be equal to calling new with the same arguments" in {
     Failure(Message, Throwable) should equal (failure)
   }
 }
