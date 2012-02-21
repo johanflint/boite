@@ -80,7 +80,7 @@ object Box {
       value match {
         case None => Empty
         case Some(v: A) => Full(v)
-        case v => if (value == null) Empty else Full(value)
+        case _ => if (value == null) Empty else Full(value)
       }
     }
     catch {
