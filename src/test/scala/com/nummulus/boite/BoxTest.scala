@@ -29,4 +29,12 @@ class BoxTest extends FlatSpec with ShouldMatchers {
       Box(throw Error)
     }
   }
+  
+  it should "accept an empty Option and return Empty" in {
+    Box(None) should equal (Empty)
+  }
+  
+  it should "accept a full Option and return Full" in {
+    Box(Some(GilbertBecaud)) should equal (Full(GilbertBecaud))
+  }
 }

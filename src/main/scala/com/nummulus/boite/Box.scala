@@ -77,7 +77,11 @@ object Box {
    */
   def apply[A](f: => A): Box[A] = try {
       val value = f
-      if (value == null) Empty else Full(value)
+      value match {
+        case None => Empty
+        case Some(v: A) => Full(v)
+        case v => if (value == null) Empty else Full(value)
+      }
     }
     catch {
       case e: Exception => Failure(e)
