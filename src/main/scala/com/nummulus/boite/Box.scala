@@ -98,7 +98,7 @@ final case class Full[+A](value: A) extends Box[A] {
   override def toList: List[A] = List(value)
 }
 
-sealed abstract class BoiteVide extends Box[Nothing] {
+private[boite] sealed abstract class BoiteVide extends Box[Nothing] {
   def isEmpty = true
   
   override def getOrElse[B >: Nothing](default: => B): B = default
