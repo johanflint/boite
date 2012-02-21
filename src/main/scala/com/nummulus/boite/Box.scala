@@ -113,14 +113,16 @@ sealed case class Failure(message: String, exception: Box[Throwable]) extends Bo
   
   override def flatMap[B](f: A => Box[B]): Box[B] = this
   
-  override def equals(other: Any): Boolean = (this, other) match {
+  override final def equals(other: Any): Boolean = (this, other) match {
     case (Failure(x, y), Failure(a, b)) => (x, y) == (a, b)
     case (x, y: AnyRef) => x eq y
     case _ => false
   }
   
-  override def hashCode: Int =
-    exception.hashCode + (if (message == null) 0 else 31 * message.hashCode)
+  override final def hashCode: Int = exception.hashCode + (message match {
+    case null => 0
+    case m => 31 * m.hashCode
+  })
 }
 
 object Failure {

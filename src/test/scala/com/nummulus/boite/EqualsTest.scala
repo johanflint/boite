@@ -13,6 +13,7 @@ class EqualsTest extends FlatSpec with ShouldMatchers {
   "equals and hashCode" should "be correct in Box" in {
     EqualsVerifier.forClass(classOf[Box[_]])
       .usingGetClass
+      .suppress(Warning.IDENTICAL_COPY)
       .verify
   }
 
@@ -35,6 +36,7 @@ class EqualsTest extends FlatSpec with ShouldMatchers {
     EqualsVerifier.forClass(classOf[BoiteVide])
       .withRedefinedSuperclass
       .usingGetClass
+      .suppress(Warning.IDENTICAL_COPY)
       .verify
   }
 
