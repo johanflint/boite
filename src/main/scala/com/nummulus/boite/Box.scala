@@ -72,16 +72,20 @@ sealed abstract class Box[+A] {
 
 object Box {
   /**
+   * A Box factory which converts a scala.Option to a Box.
+   */
+  def apply[A](o: Option[A]): Box[A] = o match {
+    case Some(value) => Full(value)
+    case None => Empty
+  }
+  
+  /**
    * A Box factory which returns a Full(f) if f is not null, Empty if it is,
    * and a Failure if f throws an exception.
    */
-  def apply[A](f: => A): Box[A] = try {
+  def wrap[A](f: => A): Box[A] = try {
       val value = f
-      value match {
-        case None => Empty
-        case Some(v: A) => Full(v)
-        case _ => if (value == null) Empty else Full(value)
-      }
+      if (value == null) Empty else Full(value)
     }
     catch {
       case e: Exception => Failure(e)
