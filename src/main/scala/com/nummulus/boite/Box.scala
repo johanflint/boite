@@ -114,7 +114,7 @@ private[boite] sealed abstract class BoiteVide extends Box[Nothing] {
 
 case object Empty extends BoiteVide
 
-sealed case class Failure(message: String, exception: Throwable) extends BoiteVide {
+sealed case class Failure(exception: Throwable) extends BoiteVide {
   type A = Nothing
   
   override def map[B](f: A => B): Box[B] = this
@@ -122,18 +122,14 @@ sealed case class Failure(message: String, exception: Throwable) extends BoiteVi
   override def flatMap[B](f: A => Box[B]): Box[B] = this
   
   override final def equals(other: Any): Boolean = (this, other) match {
-    case (Failure(x, y), Failure(a, b)) => (x, y) == (a, b)
+    case (Failure(x), Failure(a)) => (x) == (a)
     case (x, y: AnyRef) => x eq y
     case _ => false
   }
   
-  override final def hashCode: Int = exception.hashCode + (message match {
-    case null => 0
-    case m => 31 * m.hashCode
-  })
+  override final def hashCode: Int = exception.hashCode
 }
 
 object Failure {
-  def apply(message: String) = new Failure(message, new Exception)
-  def apply(throwable: Throwable) = new Failure(throwable.getMessage, throwable)
+  def apply(message: String) = new Failure(new Exception(message))
 }

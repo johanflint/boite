@@ -14,7 +14,7 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   val Throwable = new Exception
   val FileNotFoundException = new FileNotFoundException(Message)
   
-  val failure = new Failure(Message, Throwable)
+  val failure = Failure(Throwable)
   
   "Failure" should "be empty" in {
     failure.isEmpty should equal (true)
@@ -26,10 +26,6 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   
   "getOrElse" should "return the default value on failure" in {
     failure.getOrElse(404) should equal (404)
-  }
-  
-  "Failure with a throwable" should "copy the message correctly" in {
-    Failure(FileNotFoundException).message == Message should be (true)
   }
   
   "map" should "return the same instance" in {
@@ -49,9 +45,5 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   
   "toList" should "return an empty list" in {
     Empty.toList should equal (List())
-  }
-  
-  "Failure.apply(message, throwable)" should "be equal to calling new with the same arguments" in {
-    Failure(Message, Throwable) should equal (failure)
   }
 }
