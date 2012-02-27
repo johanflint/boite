@@ -21,7 +21,7 @@ class BoxTest extends FlatSpec with ShouldMatchers {
   }
   
   it should "return Failure when an exception is thrown while evaluating the expression passed to it" in {
-    Box wrap { throw Exception } should equal (Failure("not supported", Full(Exception)))
+    Box wrap { throw Exception } should equal (Failure("not supported", Exception))
   }
   
   it should "let Errors pass through" in {

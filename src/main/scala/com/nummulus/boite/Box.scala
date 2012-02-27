@@ -114,7 +114,7 @@ private[boite] sealed abstract class BoiteVide extends Box[Nothing] {
 
 case object Empty extends BoiteVide
 
-sealed case class Failure(message: String, exception: Box[Throwable]) extends BoiteVide {
+sealed case class Failure(message: String, exception: Throwable) extends BoiteVide {
   type A = Nothing
   
   override def map[B](f: A => B): Box[B] = this
@@ -134,7 +134,6 @@ sealed case class Failure(message: String, exception: Box[Throwable]) extends Bo
 }
 
 object Failure {
-  def apply(message: String) = new Failure(message, Empty)
-  def apply(throwable: Throwable) = new Failure(throwable.getMessage, Full(throwable))
-  def apply(message: String, throwable: Throwable) = new Failure(message, Full(throwable))
+  def apply(message: String) = new Failure(message, new Exception)
+  def apply(throwable: Throwable) = new Failure(throwable.getMessage, throwable)
 }
