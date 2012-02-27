@@ -14,7 +14,7 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   val Throwable = new Exception
   val FileNotFoundException = new FileNotFoundException(Message)
   
-  val failure = new Failure(Message, Full(Throwable))
+  val failure = new Failure(Message, Throwable)
   
   "Failure" should "be empty" in {
     failure.isEmpty should equal (true)
