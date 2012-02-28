@@ -7,16 +7,17 @@
 
 	<name>Nummulus - Boite</name>
 	<description>A better Option than Box</description>
-	
+
 	<scm>
 		<connection>scm:git:git://github.com/nummulus/boite.git</connection>
 		<developerConnection>scm:git:git://github.com/nummulus/boite.git</developerConnection>
 		<url>https://github.com/nummulus/boite</url>
 	</scm>
-	
+
 	<properties>
 		<scala.version>2.9.0</scala.version>
 		<maven-scala-plugin.version>2.15.2</maven-scala-plugin.version>
+		<maven-source-plugin.version>2.1.2</maven-source-plugin.version>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<encoding>UTF-8</encoding>
@@ -84,6 +85,19 @@
 						<arg>-deprecation</arg>
 					</args>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven-source-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
