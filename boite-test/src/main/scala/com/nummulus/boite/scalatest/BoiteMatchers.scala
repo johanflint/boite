@@ -14,8 +14,13 @@ object BoiteMatchers {
     
     def withMessage(message: String) =
       new BePropertyMatcher[Box[_]] {
-        // TODO: add logic
-        def apply(left: Box[_]) = BePropertyMatchResult(true, "")
+        def apply(left: Box[_]) = {
+          val matches = left match {
+            case Failure(e) => e.getMessage == message
+            case _ => false
+          }
+          BePropertyMatchResult(matches, "failure with message \"" + message + "\"")
+        }
       }
   }
 
