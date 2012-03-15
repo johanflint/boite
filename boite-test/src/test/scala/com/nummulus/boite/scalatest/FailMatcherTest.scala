@@ -28,16 +28,22 @@ class FailMatcherTest extends FlatSpec with ShouldMatchers {
   }
   
   it should "give an appropriate error message" in {
-    val x = intercept[TestFailedException] {
+    val thrown = intercept[TestFailedException] {
       anEmpty should be a failure
     }
-    x.message match {
-      case Some(msg) => msg should include ("not a failure")
-      case None => fail
-    }
+    thrown.getMessage should include ("not a failure")
   }
   
-  "FailureBePropertyMatcher#withMessage" should "match a message" in {
+  "FailureBePropertyMatcher#withMessage" should "correctly match a message" in {
     aFailure should be a (failure withMessage aMessage)
+    aFailure should not be a (failure withMessage "something else")
+    anEmpty  should not be a (failure withMessage aMessage)
+  }
+  
+  it should "give an appropriate error message" in {
+    val thrown = intercept[TestFailedException] {
+      anEmpty should be a (failure withMessage aMessage)
+    }
+    thrown.getMessage should include ("failure with message \"" + aMessage + "\"")
   }
 }
