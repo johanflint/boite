@@ -22,6 +22,17 @@ object BoiteMatchers {
           BePropertyMatchResult(matches, "failure saying " + messages.mkString("\"", "\", \"", "\""))
         }
       }
+    
+    def containing[T <: Throwable](clazz: Class[T]) =
+      new BePropertyMatcher[Box[_]] {
+        def apply(left: Box[_]) = {
+          val matches = left match {
+            case Failure(e) => e.getClass == clazz
+            case _ => false
+          }
+          BePropertyMatchResult(matches, "failure containing " + clazz.getSimpleName)
+        }
+      }
   }
 
   val failure = new FailureBePropertyMatcher

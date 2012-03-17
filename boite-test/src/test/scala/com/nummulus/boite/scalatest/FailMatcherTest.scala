@@ -68,4 +68,25 @@ class FailMatcherTest extends WordSpec with ShouldMatchers {
       thrown.getMessage should include ("failure saying \"this\", \"exception\", \"message\"")
     }
   }
+  
+  "containing" should {
+    "correctly match an exception" in {
+      aFailure should be a (failure containing classOf[IllegalStateException])
+    }
+    
+    "not match a failure with another exception" in {
+      aFailure should not be a (failure containing classOf[NullPointerException])
+    }
+    
+    "not match a non-failure" in {
+      anEmpty should not be a (failure containing classOf[IllegalStateException])
+    }
+    
+    "give an appropriate error message" in {
+      val thrown = intercept[TestFailedException] {
+        anEmpty should be a (failure containing classOf[IllegalStateException])
+      }
+      thrown.getMessage should include ("failure containing IllegalStateException")
+    }
+  }
 }
