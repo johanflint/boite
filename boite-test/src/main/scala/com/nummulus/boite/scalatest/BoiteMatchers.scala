@@ -12,14 +12,14 @@ object BoiteMatchers {
     def apply(left: Box[_]) = 
       BePropertyMatchResult(left.isInstanceOf[Failure], "failure")
     
-    def saying(message: String) =
+    def saying(messages: String*) =
       new BePropertyMatcher[Box[_]] {
         def apply(left: Box[_]) = {
           val matches = left match {
-            case Failure(e) => e.getMessage contains message
+            case Failure(e) => messages forall { e.getMessage contains _ }
             case _ => false
           }
-          BePropertyMatchResult(matches, "failure with message \"" + message + "\"")
+          BePropertyMatchResult(matches, "failure saying " + messages.mkString("\"", "\", \"", "\""))
         }
       }
   }

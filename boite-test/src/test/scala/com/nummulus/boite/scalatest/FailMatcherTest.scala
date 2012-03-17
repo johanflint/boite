@@ -46,14 +46,22 @@ class FailMatcherTest extends FlatSpec with ShouldMatchers {
     anEmpty  should not be a (failure saying aMessage)
   }
   
-  it should "match a partial message" in {
+  it should "match a substring" in {
     aFailure should be a (failure saying "message")
+  }
+  
+  it should "match several substrings" in {
+    aFailure should be a (failure saying ("this", "exception", "message"))
+  }
+  
+  it should "not match if one substring doesn't match" in {
+    aFailure should not be a (failure saying ("this", "exception", "does not match"))
   }
   
   it should "give an appropriate error message" in {
     val thrown = intercept[TestFailedException] {
-      anEmpty should be a (failure saying aMessage)
+      anEmpty should be a (failure saying ("this", "exception", "message"))
     }
-    thrown.getMessage should include ("failure with message \"" + aMessage + "\"")
+    thrown.getMessage should include ("failure saying \"this\", \"exception\", \"message\"")
   }
 }
