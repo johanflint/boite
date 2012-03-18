@@ -4,20 +4,10 @@ package scalatest
 
 import BoiteMatchers._
 import org.junit.runner.RunWith
-import org.scalatest.WordSpec
-import org.scalatest.TestFailedException
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
 
 @RunWith(classOf[JUnitRunner])
-class FailMatcherTest extends WordSpec with ShouldMatchers {
-  val aMessage    = "this is the exception message"
-  val anException = new IllegalStateException(aMessage)
-  
-  val aFull    = Full("foo")
-  val anEmpty  = Empty
-  val aFailure = Failure(anException)
-
+class FailMatcherTest extends BoxMatcherTestTrait {
   "apply" should {
     "match a failure" in {
       aFailure should be a failure
@@ -129,10 +119,5 @@ class FailMatcherTest extends WordSpec with ShouldMatchers {
         aFailure should be a (failure containing classOf[NullPointerException] saying "something else")
       }
     }
-  }
-  
-  def itShouldFailSaying(substrings: String*)(block: => Unit) {
-    val msg = intercept[TestFailedException](block).getMessage
-    substrings foreach { msg should include (_) }
   }
 }

@@ -8,6 +8,22 @@ import org.scalatest.matchers.Matcher
 import org.scalatest.matchers.MatchResult
 
 object BoiteMatchers {
+  class FullBePropertyMatcher extends BePropertyMatcher[Box[_]] {
+    def apply(left: Box[_]) =
+      BePropertyMatchResult(left.isInstanceOf[Full[_]], "full")
+    
+    def containing(value: Any) =
+      new BePropertyMatcher[Box[_]] {
+        def apply(left: Box[_]) = {
+          val matches = left match {
+            case Full(v) => v == value
+            case _ => false
+          }
+          BePropertyMatchResult(matches, "full containing \"" + value + "\"")
+        }
+      }
+  }
+  
   class FailureBePropertyMatcher extends BePropertyMatcher[Box[_]] {
     def apply(left: Box[_]) = 
       BePropertyMatchResult(left.isInstanceOf[Failure], "failure")
@@ -48,5 +64,6 @@ object BoiteMatchers {
     private def mkString(s: Seq[String]) = s.mkString("\"", "\", \"", "\"")
   }
 
+  val full    = new FullBePropertyMatcher
   val failure = new FailureBePropertyMatcher
 }
