@@ -4,7 +4,7 @@ package scalatest
 
 import org.scalatest.matchers.BePropertyMatcher
 import org.scalatest.matchers.BePropertyMatchResult
-import org.scalatest.matchers.Matcher
+import org.scalatest.matchers.BeMatcher
 import org.scalatest.matchers.MatchResult
 
 object BoiteMatchers {
@@ -22,6 +22,11 @@ object BoiteMatchers {
           BePropertyMatchResult(matches, "full containing \"" + value + "\"")
         }
       }
+  }
+  
+  class EmptyBeMatcher extends BeMatcher[Box[_]] {
+    def apply(left: Box[_]) =
+      MatchResult(left == Empty, left + " was not empty", left + " was empty")
   }
   
   class FailureBePropertyMatcher extends BePropertyMatcher[Box[_]] {
@@ -65,5 +70,6 @@ object BoiteMatchers {
   }
 
   val full    = new FullBePropertyMatcher
+  val empty   = new EmptyBeMatcher
   val failure = new FailureBePropertyMatcher
 }
