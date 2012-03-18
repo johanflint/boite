@@ -18,5 +18,11 @@
 			<artifactId>boite</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.scalatest</groupId>
+			<artifactId>scalatest_${scala.version}</artifactId>
+			<version>${scalatest.version}</version>
+			<!-- Note: *NOT* a test dependency! -->
+		</dependency>
 	</dependencies>
 </project>
