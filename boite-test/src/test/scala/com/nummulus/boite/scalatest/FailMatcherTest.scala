@@ -29,10 +29,9 @@ class FailMatcherTest extends WordSpec with ShouldMatchers {
     }
     
     "give an appropriate error message" in {
-      val thrown = intercept[TestFailedException] {
+      itShouldFailSaying("not a failure") {
         anEmpty should be a failure
       }
-      thrown.getMessage should include ("not a failure")
     }
   }
   
@@ -62,10 +61,9 @@ class FailMatcherTest extends WordSpec with ShouldMatchers {
     }
     
     "give an appropriate error message" in {
-      val thrown = intercept[TestFailedException] {
+      itShouldFailSaying("failure saying \"this\", \"exception\", \"message\"") {
         anEmpty should be a (failure saying ("this", "exception", "message"))
       }
-      thrown.getMessage should include ("failure saying \"this\", \"exception\", \"message\"")
     }
   }
   
@@ -83,10 +81,58 @@ class FailMatcherTest extends WordSpec with ShouldMatchers {
     }
     
     "give an appropriate error message" in {
-      val thrown = intercept[TestFailedException] {
+      itShouldFailSaying("failure containing IllegalStateException") {
         anEmpty should be a (failure containing classOf[IllegalStateException])
       }
-      thrown.getMessage should include ("failure containing IllegalStateException")
     }
+  }
+  
+  "containing/saying" should {
+    "correctly match an exception and a substring" in {
+      aFailure should be a (failure containing classOf[IllegalStateException] saying aMessage)
+    }
+    
+    "correctly match an exception and several substrings" in {
+      aFailure should be a (failure containing classOf[IllegalStateException] saying ("this", "exception", "message"))
+    }
+    
+    "not match a failure with another exception" in {
+      aFailure should not be a (failure containing classOf[NullPointerException] saying aMessage)
+    }
+    
+    "not match a failure with another message" in {
+      aFailure should not be a (failure containing classOf[IllegalStateException] saying "something else")
+    }
+    
+    "not match if one substring does not match" in {
+      aFailure should not be a (failure containing classOf[IllegalStateException] saying ("this", "exception", "does not match"))
+    }
+    
+    "not match a non-failure" in {
+      anEmpty should not be a (failure containing classOf[IllegalStateException] saying aMessage)
+    }
+    
+    "give an appropriate error message if the exception is incorrect" in {
+      itShouldFailSaying("failure", "containing NullPointerException") {
+        aFailure should be a (failure containing classOf[NullPointerException] saying aMessage)
+      }
+    }
+    
+    "give an appropriate error message if the message is incorrect" in {
+      itShouldFailSaying("failure", "saying \"something else\"") {
+        aFailure should be a (failure containing classOf[IllegalStateException] saying "something else")
+      }
+    }
+    
+    "give an appropriate error message if both are incorrect" in {
+      itShouldFailSaying("failure", "containing NullPointerException", "saying \"something else\"") {
+        aFailure should be a (failure containing classOf[NullPointerException] saying "something else")
+      }
+    }
+  }
+  
+  def itShouldFailSaying(substrings: String*)(block: => Unit) {
+    val msg = intercept[TestFailedException](block).getMessage
+    substrings foreach { msg should include (_) }
   }
 }
