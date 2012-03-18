@@ -19,7 +19,7 @@ object BoiteMatchers {
             case Failure(e) => messages forall { e.getMessage contains _ }
             case _ => false
           }
-          BePropertyMatchResult(matches, "failure saying " + messages.mkString("\"", "\", \"", "\""))
+          BePropertyMatchResult(matches, "failure saying " + mkString(messages))
         }
       }
     
@@ -32,7 +32,20 @@ object BoiteMatchers {
           }
           BePropertyMatchResult(matches, "failure containing " + clazz.getSimpleName)
         }
+        
+        def saying(messages: String*) =
+          new BePropertyMatcher[Box[_]] {
+            def apply(left: Box[_]) = {
+              val matches = left match {
+                case Failure(e) => (e.getClass == clazz) && (messages forall { e.getMessage contains _ })
+                case _ => false
+              }
+              BePropertyMatchResult(matches, "failure containing " + clazz.getSimpleName + " and saying " + mkString(messages))
+            }
+          }
       }
+    
+    private def mkString(s: Seq[String]) = s.mkString("\"", "\", \"", "\"")
   }
 
   val failure = new FailureBePropertyMatcher
