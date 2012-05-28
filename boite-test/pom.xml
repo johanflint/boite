@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>boite-test</artifactId>
 
-	<name>Nummulus - Boite - Test support</name>
-	<description>A better Option than Box</description>
+	<name>Boite - ScalaTest support</name>
+	<description>Additional matchers for ScalaTest</description>
 
 	<parent>
 		<artifactId>boite-parent</artifactId>
