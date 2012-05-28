@@ -7,8 +7,8 @@
 	<description>A better Option than Box</description>
 
 	<parent>
-		<artifactId>boite-parent</artifactId>
 		<groupId>com.nummulus</groupId>
+		<artifactId>boite-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
