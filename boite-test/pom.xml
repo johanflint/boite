@@ -16,7 +16,7 @@
 		<dependency>
 			<groupId>com.nummulus</groupId>
 			<artifactId>boite</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.scalatest</groupId>
