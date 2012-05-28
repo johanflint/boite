@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Nummulus - Boite - Parent POM</name>
+	<name>Boite - Parent POM</name>
 	<description>A better Option than Box</description>
 
 	<scm>
