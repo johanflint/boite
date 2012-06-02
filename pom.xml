@@ -29,7 +29,7 @@
 
 	<modules>
 		<module>boite</module>
-		<module>boite-test</module>
+		<module>boite-scalatest</module>
 	</modules>
 
 	<build>
