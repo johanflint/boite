@@ -9,6 +9,12 @@
 	<name>Boite - Parent POM</name>
 	<description>A better Option than Box</description>
 
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
