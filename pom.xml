@@ -24,9 +24,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:git://github.com/nummulus/boite.git</connection>
-		<developerConnection>scm:git:git://github.com/nummulus/boite.git</developerConnection>
-		<url>https://github.com/nummulus/boite</url>
+		<connection>scm:git:git@github.com:nummulus/boite.git</connection>
+		<developerConnection>scm:git:git@github.com:nummulus/boite.git</developerConnection>
+		<url>git@github.com:nummulus/boite.git</url>
 	</scm>
 
 	<properties>
