@@ -4,7 +4,7 @@
 	<artifactId>boite-scalatest</artifactId>
 
 	<name>Boite - ScalaTest support</name>
-	<description>Additional matchers for ScalaTest</description>
+	<description>Additional Boite matchers for ScalaTest</description>
 
 	<parent>
 		<groupId>com.nummulus</groupId>
