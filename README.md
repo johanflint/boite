@@ -93,6 +93,8 @@ We decided to write Boite because none of the three previously existing approach
 
 Boite provides the Box type, which addresses all these issues. It's lean and mean, it contains only the necessary features, and it's fully type-safe.
 
+Boite uses [Semantic Versioning](http://semver.org/) for its releases.
+
 
 
 Naming
