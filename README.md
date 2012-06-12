@@ -89,7 +89,7 @@ We decided to write Boite because none of the three previously existing approach
   [Scala's Option](http://www.scala-lang.org/api/current/scala/Option.html) addresses these issues, but it doesn't handle the case when something goes wrong. You have to catch exceptions, which is easy to forget.
 
 * Box
-  [Lift's Box](http://www.assembla.com/spaces/liftweb/wiki/Box) addresses this issue, but brings in a number of it's own. First, it's a bit bloated, sporting many features that seem to be unnecesary, many of which have symbolic names that are hard to read. Also, its equals method is [broken](https://github.com/lift/framework/issues/1234). Most importantly, though, it requires you to depend on Lift, which is fine if you're building a Lift application, but very inconvenient in just about all other cases.
+  [Lift's Box](http://www.assembla.com/spaces/liftweb/wiki/Box) addresses this issue, but is part of the Lift web framework, which means that you need to depend on a web framework if you want to use it. If you're building a Lift app, that's fine, but otherwise it's quite inconvenient. In addition, unfortunately, its equals method is [broken](https://github.com/lift/framework/issues/1234).
 
 Boite provides the Box type, which addresses all these issues. It's lean and mean, it contains only the necessary features, and it's fully type-safe.
 
