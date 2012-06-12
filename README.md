@@ -10,7 +10,17 @@ It defines a class `Box[T]` that can have three values: Empty, Full, or Failure.
 How to use
 ----------
 
-Add a dependency to `boite`. The following snippet of code show a typical usage of Boite:
+Add a dependency to `boite`. The Maven dependency looks like this:
+
+    <dependency>
+      <groupId>com.nummulus</groupId>
+      <artifactId>boite</artifactId>
+      <version>???</version>
+    </dependency>
+
+Instead of `???`, you need to fill in the latest version number.
+
+The following snippet of code show a typical usage of Boite:
 
     val user: Box[User] = Box.wrap {
       SecurityManager.findUser("jacques")
@@ -25,7 +35,18 @@ Add a dependency to `boite`. The following snippet of code show a typical usage 
 
 For more usage examples, see [Boite's test cases](https://github.com/nummulus/boite/tree/master/boite/src/test/scala/com/nummulus/boite).
 
-If you use ScalaTest, you can add a test-scope dependency to `boite-scalatest`. The following snippet shows the matchers that you can use, and a number of other ways Boite can be used:
+If you use ScalaTest, you can add a test-scope dependency to `boite-scalatest`. The Maven dependency looks like this:
+
+    <dependency>
+      <groupId>com.nummulus</groupId>
+      <artifactId>boite-scalatest</artifactId>
+      <version>???</version>
+      <scope>test</scope>
+    </dependency>
+
+Instead of `???`, you need to fill in the latest version number.
+
+The following snippet shows the matchers that you can use, and a number of other ways Boite can be used:
 
     class BoxTest extends FlatSpec with ShouldMatchers {
       behavior of "A Box"
