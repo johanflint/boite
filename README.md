@@ -22,6 +22,8 @@ Instead of `???`, you need to fill in the latest version number.
 
 The following snippet of code show a typical usage of Boite:
 
+    import com.nummulus.boite._
+
     val user: Box[User] = Box.wrap {
       SecurityManager.findUser("jacques")
     }
@@ -48,6 +50,8 @@ Instead of `???`, you need to fill in the latest version number.
 
 The following snippet shows the matchers that you can use, and a number of other ways Boite can be used:
 
+    import com.nummulus.boite.scalatest.BoiteMatchers._
+
     class BoxTest extends FlatSpec with ShouldMatchers {
       behavior of "A Box"
 
@@ -55,7 +59,7 @@ The following snippet shows the matchers that you can use, and a number of other
         val b = Full("hello")
 
         b.getOrElse("nothing") should be ("hello")
-        b should be a (Full containing "hello")
+        b should be a (full containing "hello")
       }
 
       it should "be empty" in {
