@@ -24,13 +24,17 @@ import org.scalatest.matchers.BeMatcher
 import org.scalatest.matchers.MatchResult
 
 object BoiteMatchers {
-  class FullBePropertyMatcher extends BePropertyMatcher[Box[_]] {
-    def apply(left: Box[_]) =
+  val full    = new FullBePropertyMatcher
+  val empty   = new EmptyBeMatcher
+  val failure = new FailureBePropertyMatcher
+  
+  private[scalatest] class FullBePropertyMatcher extends BePropertyMatcher[Box[_]] {
+    override def apply(left: Box[_]): BePropertyMatchResult =
       BePropertyMatchResult(left.isInstanceOf[Full[_]], "full")
     
     def containing(value: Any) =
       new BePropertyMatcher[Box[_]] {
-        def apply(left: Box[_]) = {
+        override def apply(left: Box[_]) = {
           val matches = left match {
             case Full(v) => v == value
             case _ => false
@@ -40,18 +44,18 @@ object BoiteMatchers {
       }
   }
   
-  class EmptyBeMatcher extends BeMatcher[Box[_]] {
-    def apply(left: Box[_]) =
+  private[scalatest] class EmptyBeMatcher extends BeMatcher[Box[_]] {
+    override def apply(left: Box[_]): MatchResult =
       MatchResult(left == Empty, left + " was not empty", left + " was empty")
   }
   
-  class FailureBePropertyMatcher extends BePropertyMatcher[Box[_]] {
-    def apply(left: Box[_]) = 
+  private[scalatest] class FailureBePropertyMatcher extends BePropertyMatcher[Box[_]] {
+    override def apply(left: Box[_]): BePropertyMatchResult =
       BePropertyMatchResult(left.isInstanceOf[Failure], "failure")
     
     def saying(messages: String*) =
       new BePropertyMatcher[Box[_]] {
-        def apply(left: Box[_]) = {
+        override def apply(left: Box[_]) = {
           val matches = left match {
             case Failure(e) => messages forall { e.getMessage contains _ }
             case _ => false
@@ -62,7 +66,7 @@ object BoiteMatchers {
     
     def containing[T <: Throwable](clazz: Class[T]) =
       new BePropertyMatcher[Box[_]] {
-        def apply(left: Box[_]) = {
+        override def apply(left: Box[_]) = {
           val matches = left match {
             case Failure(e) => e.getClass == clazz
             case _ => false
@@ -72,7 +76,7 @@ object BoiteMatchers {
         
         def saying(messages: String*) =
           new BePropertyMatcher[Box[_]] {
-            def apply(left: Box[_]) = {
+            override def apply(left: Box[_]) = {
               val matches = left match {
                 case Failure(e) => (e.getClass == clazz) && (messages forall { e.getMessage contains _ })
                 case _ => false
@@ -84,8 +88,4 @@ object BoiteMatchers {
     
     private def mkString(s: Seq[String]) = s.mkString("\"", "\", \"", "\"")
   }
-
-  val full    = new FullBePropertyMatcher
-  val empty   = new EmptyBeMatcher
-  val failure = new FailureBePropertyMatcher
 }
