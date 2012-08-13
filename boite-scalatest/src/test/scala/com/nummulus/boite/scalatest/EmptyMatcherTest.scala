@@ -26,21 +26,21 @@ import org.scalatest.junit.JUnitRunner
 class EmptyMatcherTest extends BoxMatcherTestTrait {
   "apply" should {
     "match an empty" in {
-      anEmpty should be (empty)
+      Empty should be (empty)
     }
     
     "not match non-empties" in {
-      aFull should not be (empty)
-      aFailure should not be (empty)
+      FullWithFoo should not be (empty)
+      FailureWithException should not be (empty)
     }
     
     "give an appropriate error message" in {
       itShouldFailSaying("Full(foo) was not empty") {
-        aFull should be (empty)
+        FullWithFoo should be (empty)
       }
       
       itShouldFailSaying("Empty was empty") {
-        anEmpty should not be (empty)
+        Empty should not be (empty)
       }
     }
   }

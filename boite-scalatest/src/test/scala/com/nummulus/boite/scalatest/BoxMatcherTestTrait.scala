@@ -23,12 +23,11 @@ import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
 
 trait BoxMatcherTestTrait extends WordSpec with ShouldMatchers {
-  val aMessage    = "this is the exception message"
-  val anException = new IllegalStateException(aMessage)
+  val Message = "this is the exception message"
+  val Exception = new IllegalStateException(Message)
   
-  val aFull    = Full("foo")
-  val anEmpty  = Empty
-  val aFailure = Failure(anException)
+  val FullWithFoo = Full("foo")
+  val FailureWithException = Failure(Exception)
   
   def itShouldFailSaying(substrings: String*)(block: => Unit) {
     val msg = intercept[TestFailedException](block).getMessage

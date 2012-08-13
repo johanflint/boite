@@ -26,113 +26,113 @@ import org.scalatest.junit.JUnitRunner
 class FailMatcherTest extends BoxMatcherTestTrait {
   "apply" should {
     "match a failure" in {
-      aFailure should be a failure
+      FailureWithException should be a failure
     }
     
     "not match non-failures" in {
-      aFull should not be a (failure)
-      anEmpty should not be a (failure)
+      FullWithFoo should not be a (failure)
+      Empty should not be a (failure)
     }
     
     "give an appropriate error message" in {
       itShouldFailSaying("not a failure") {
-        anEmpty should be a failure
+        Empty should be a failure
       }
     }
   }
   
   "saying" should {
     "correctly match a message" in {
-      aFailure should be a (failure saying aMessage)
+      FailureWithException should be a (failure saying Message)
     }
     
     "not match a failure with another message" in {
-      aFailure should not be a (failure saying "something else")
+      FailureWithException should not be a (failure saying "something else")
     }
     
     "not match a non-failure" in {
-      anEmpty  should not be a (failure saying aMessage)
+      Empty  should not be a (failure saying Message)
     }
     
     "match a substring" in {
-      aFailure should be a (failure saying "message")
+      FailureWithException should be a (failure saying "message")
     }
     
     "match several substrings" in {
-      aFailure should be a (failure saying ("this", "exception", "message"))
+      FailureWithException should be a (failure saying ("this", "exception", "message"))
     }
     
     "not match if one substring doesn't match" in {
-      aFailure should not be a (failure saying ("this", "exception", "does not match"))
+      FailureWithException should not be a (failure saying ("this", "exception", "does not match"))
     }
     
     "give an appropriate error message" in {
       itShouldFailSaying("failure saying \"this\", \"exception\", \"message\"") {
-        anEmpty should be a (failure saying ("this", "exception", "message"))
+        Empty should be a (failure saying ("this", "exception", "message"))
       }
     }
   }
   
   "containing" should {
     "correctly match an exception" in {
-      aFailure should be a (failure containing classOf[IllegalStateException])
+      FailureWithException should be a (failure containing classOf[IllegalStateException])
     }
     
     "not match a failure with another exception" in {
-      aFailure should not be a (failure containing classOf[NullPointerException])
+      FailureWithException should not be a (failure containing classOf[NullPointerException])
     }
     
     "not match a non-failure" in {
-      anEmpty should not be a (failure containing classOf[IllegalStateException])
+      Empty should not be a (failure containing classOf[IllegalStateException])
     }
     
     "give an appropriate error message" in {
       itShouldFailSaying("failure containing IllegalStateException") {
-        anEmpty should be a (failure containing classOf[IllegalStateException])
+        Empty should be a (failure containing classOf[IllegalStateException])
       }
     }
   }
   
   "containing/saying" should {
     "correctly match an exception and a substring" in {
-      aFailure should be a (failure containing classOf[IllegalStateException] saying aMessage)
+      FailureWithException should be a (failure containing classOf[IllegalStateException] saying Message)
     }
     
     "correctly match an exception and several substrings" in {
-      aFailure should be a (failure containing classOf[IllegalStateException] saying ("this", "exception", "message"))
+      FailureWithException should be a (failure containing classOf[IllegalStateException] saying ("this", "exception", "message"))
     }
     
     "not match a failure with another exception" in {
-      aFailure should not be a (failure containing classOf[NullPointerException] saying aMessage)
+      FailureWithException should not be a (failure containing classOf[NullPointerException] saying Message)
     }
     
     "not match a failure with another message" in {
-      aFailure should not be a (failure containing classOf[IllegalStateException] saying "something else")
+      FailureWithException should not be a (failure containing classOf[IllegalStateException] saying "something else")
     }
     
     "not match if one substring does not match" in {
-      aFailure should not be a (failure containing classOf[IllegalStateException] saying ("this", "exception", "does not match"))
+      FailureWithException should not be a (failure containing classOf[IllegalStateException] saying ("this", "exception", "does not match"))
     }
     
     "not match a non-failure" in {
-      anEmpty should not be a (failure containing classOf[IllegalStateException] saying aMessage)
+      Empty should not be a (failure containing classOf[IllegalStateException] saying Message)
     }
     
     "give an appropriate error message if the exception is incorrect" in {
       itShouldFailSaying("failure", "containing NullPointerException") {
-        aFailure should be a (failure containing classOf[NullPointerException] saying aMessage)
+        FailureWithException should be a (failure containing classOf[NullPointerException] saying Message)
       }
     }
     
     "give an appropriate error message if the message is incorrect" in {
       itShouldFailSaying("failure", "saying \"something else\"") {
-        aFailure should be a (failure containing classOf[IllegalStateException] saying "something else")
+        FailureWithException should be a (failure containing classOf[IllegalStateException] saying "something else")
       }
     }
     
     "give an appropriate error message if both are incorrect" in {
       itShouldFailSaying("failure", "containing NullPointerException", "saying \"something else\"") {
-        aFailure should be a (failure containing classOf[NullPointerException] saying "something else")
+        FailureWithException should be a (failure containing classOf[NullPointerException] saying "something else")
       }
     }
   }
