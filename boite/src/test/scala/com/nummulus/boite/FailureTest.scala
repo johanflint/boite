@@ -30,36 +30,38 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   val Throwable = new Exception
   val FileNotFoundException = new FileNotFoundException(Message)
   
-  val failure = Failure(Throwable)
+  val FailureWithThrowable = Failure(Throwable)
   
-  "Failure" should "be empty" in {
-    failure.isEmpty should equal (true)
+  behavior of "Failure"
+  
+  it should "be empty" in {
+    FailureWithThrowable.isEmpty should be (true)
   }
   
-  "Failure" should "not be defined" in {
-    failure.isDefined should equal (false)
+  it should "not be defined" in {
+    FailureWithThrowable.isDefined should be (false)
   }
   
-  "getOrElse" should "return the default value on failure" in {
-    failure.getOrElse(404) should equal (404)
+  "getOrElse" should "return the default value on Failure" in {
+    FailureWithThrowable.getOrElse(404) should be (404)
   }
   
   "map" should "return the same instance" in {
-    failure.map(s => s) should equal (failure)
+    FailureWithThrowable map { s => s } should be (FailureWithThrowable)
   }
   
   "flatMap" should "return the same instance" in {
-    failure.flatMap(s => s) should equal (failure)
+    FailureWithThrowable flatMap { s => s } should be (FailureWithThrowable)
   }
   
   "foreach" should "not call anything" in {
     val test = mock[DummyTrait]
-    failure.foreach(s => test.calculate(""))
+    FailureWithThrowable foreach { s => test.calculate("") }
     
     verify (test, never) calculate("")
   }
   
   "toList" should "return an empty list" in {
-    Empty.toList should equal (List())
+    Empty.toList should be (List())
   }
 }

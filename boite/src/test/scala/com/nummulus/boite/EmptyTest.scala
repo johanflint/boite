@@ -25,34 +25,36 @@ import org.scalatest.mock.MockitoSugar
 
 @RunWith(classOf[JUnitRunner])
 class EmptyTest extends FlatSpec with ShouldMatchers with MockitoSugar {
-  "Empty" should "be empty" in {
-    Empty.isEmpty should equal (true)
+  behavior of "Empty"
+  
+  it should "be empty" in {
+    Empty.isEmpty should be (true)
   }
   
-  "Empty" should "not be defined" in {
-    Empty.isDefined should equal (false)
+  it should "not be defined" in {
+    Empty.isDefined should be (false)
   }
   
   "getOrElse" should "return the default value if empty" in {
-    Empty.getOrElse(404) should equal (404)
+    Empty.getOrElse(404) should be (404)
   }
   
   "map" should "return Empty" in {
-    Empty.map(s => s) should equal (Empty)
+    Empty map { s => s } should be (Empty)
   }
   
   "flatMap" should "return Empty" in {
-    Empty.flatMap(s => s) should equal (Empty)
+    Empty flatMap { s => s } should be (Empty)
   }
   
   "foreach" should "not call anything" in {
     val test = mock[DummyTrait]
-    Empty.foreach(s => test.calculate(""))
+    Empty foreach { s => test.calculate("") }
     
     verify (test, never) calculate("")
   }
   
   "toList" should "return an empty list" in {
-    Empty.toList should equal (List())
+    Empty.toList should be (List())
   }
 }
