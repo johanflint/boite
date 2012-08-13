@@ -21,8 +21,9 @@ package scalatest
 import org.scalatest.TestFailedException
 import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Assertions
 
-trait BoxMatcherTestTrait extends WordSpec with ShouldMatchers {
+trait BoxMatcherTestTrait extends ShouldMatchers {
   val Message = "this is the exception message"
   val Exception = new IllegalStateException(Message)
   

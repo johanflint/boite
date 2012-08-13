@@ -21,28 +21,28 @@ package scalatest
 import BoiteMatchers._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
+import org.scalatest.FlatSpec
 
 @RunWith(classOf[JUnitRunner])
-class EmptyMatcherTest extends BoxMatcherTestTrait {
-  "apply" should {
-    "match an empty" in {
-      Empty should be (empty)
-    }
-    
-    "not match non-empties" in {
-      FullWithFoo should not be (empty)
-      FailureWithException should not be (empty)
-    }
-    
-    "give an appropriate error message" in {
-      itShouldFailSaying("Full(foo) was not empty") {
-        FullWithFoo should be (empty)
-      }
-      
-      itShouldFailSaying("Empty was empty") {
-        Empty should not be (empty)
-      }
-    }
+class EmptyMatcherTest extends FlatSpec with BoxMatcherTestTrait {
+  behavior of "apply"
+  
+  it should "match an empty" in {
+    Empty should be (empty)
   }
   
+  it should "not match non-empties" in {
+    FullWithFoo should not be (empty)
+    FailureWithException should not be (empty)
+  }
+  
+  it should "give an appropriate error message" in {
+    itShouldFailSaying("Full(foo) was not empty") {
+      FullWithFoo should be (empty)
+    }
+    
+    itShouldFailSaying("Empty was empty") {
+      Empty should not be (empty)
+    }
+  }
 }
