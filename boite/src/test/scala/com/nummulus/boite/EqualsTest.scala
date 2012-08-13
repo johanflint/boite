@@ -26,13 +26,15 @@ import nl.jqno.equalsverifier.Warning
 
 @RunWith(classOf[JUnitRunner])
 class EqualsTest extends FlatSpec with ShouldMatchers {
-  "equals and hashCode" should "be correct in Box" in {
+  behavior of "equals and hashCode"
+  
+  it should "be correct in Box" in {
     EqualsVerifier.forClass(classOf[Box[_]])
       .usingGetClass
       .suppress(Warning.IDENTICAL_COPY)
       .verify
   }
-
+  
   it should "be correct in Full" in {
     EqualsVerifier.forClass(classOf[Full[_]])
       .withRedefinedSuperclass
@@ -40,14 +42,14 @@ class EqualsTest extends FlatSpec with ShouldMatchers {
       .suppress(Warning.NULL_FIELDS)
       .verify
   }
-
+  
   it should "be correct with respect to symmetry for an edge case in Full" in {
     val foo = "foo"
     val boxedFoo = Full(foo)
-
+    
     (boxedFoo == foo) should equal (foo == boxedFoo)
   }
-
+  
   it should "be correct in Empty" in {
     EqualsVerifier.forClass(classOf[BoiteVide])
       .withRedefinedSuperclass
@@ -55,7 +57,7 @@ class EqualsTest extends FlatSpec with ShouldMatchers {
       .suppress(Warning.IDENTICAL_COPY)
       .verify
   }
-
+  
   it should "be correct in Failure" in {
     EqualsVerifier.forClass(classOf[Failure])
       .withRedefinedSuperclass
