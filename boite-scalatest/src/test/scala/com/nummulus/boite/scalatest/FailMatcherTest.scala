@@ -70,7 +70,7 @@ class FailMatcherTest extends FlatSpec with BoxMatcherTestTrait {
   }
   
   it should "give an appropriate error message" in {
-    itShouldFailSaying("failure saying \"this\", \"exception\", \"message\"") {
+    itShouldFailSaying("""failure saying "this", "exception", "message"""") {
       Empty should be a (failure saying ("this", "exception", "message"))
     }
   }
