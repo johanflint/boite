@@ -61,7 +61,7 @@ sealed abstract class Box[+A] {
    * Applies a function to the value of the box if it's full, otherwise do 
    * nothing.
    */
-  def foreach[U](f: A => U): Unit = {}
+  def foreach[U](f: A => U) {}
   
   /**
    * Returns a List of one element if the box is full or an empty list
@@ -81,7 +81,7 @@ sealed abstract class Box[+A] {
   }
   
   override def hashCode: Int = this match {
-    case Full(x) => x.hashCode
+    case Full(x) => x.##
     case _ => super.hashCode
   }
 }
@@ -99,7 +99,8 @@ object Box {
    * A Box factory which returns a Full(f) if f is not null, Empty if it is,
    * and a Failure if f throws an exception.
    */
-  def wrap[A](f: => A): Box[A] = try {
+  def wrap[A](f: => A): Box[A] =
+    try {
       val value = f
       if (value == null) Empty else Full(value)
     }
@@ -109,7 +110,7 @@ object Box {
 }
 
 final case class Full[+A](value: A) extends Box[A] {
-  def isEmpty = false
+  override def isEmpty = false
   
   override def getOrElse[B >: A](default: => B): B = value
   
@@ -117,13 +118,13 @@ final case class Full[+A](value: A) extends Box[A] {
   
   override def flatMap[B](f: A => Box[B]): Box[B] = f(value)
   
-  override def foreach[U](f: A => U): Unit = f(value)
+  override def foreach[U](f: A => U) { f(value) }
   
   override def toList: List[A] = List(value)
 }
 
 private[boite] sealed abstract class BoiteVide extends Box[Nothing] {
-  def isEmpty = true
+  override def isEmpty = true
   
   override def getOrElse[B >: Nothing](default: => B): B = default
 }
@@ -143,7 +144,7 @@ sealed case class Failure(exception: Throwable) extends BoiteVide {
     case _ => false
   }
   
-  override final def hashCode: Int = exception.hashCode
+  override final def hashCode: Int = exception.##
 }
 
 object Failure {
