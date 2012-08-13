@@ -62,7 +62,7 @@ class FullMatcherTest extends FlatSpec with BoxMatcherTestTrait {
   }
   
   it should "give an appropriate error message" in {
-    itShouldFailSaying("full containing \"foo\"") {
+    itShouldFailSaying("""full containing "foo"""") {
       Empty should be a (full containing "foo")
     }
   }
