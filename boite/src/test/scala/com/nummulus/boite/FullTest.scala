@@ -27,40 +27,42 @@ import org.scalatest.mock.MockitoSugar
 class FullTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   val JacquesBrel = "Jacques Brel"
 
-  val box = Full(JacquesBrel)
+  val FullWithSinger = Full(JacquesBrel)
   
-  "Full" should "not be empty" in {
-    box.isEmpty should equal (false)
+  behavior of "Full"
+  
+  it should "not be empty" in {
+    FullWithSinger.isEmpty should be (false)
   }
   
-  "Full" should "not be Empty" in {
-    box == Empty should be (false)
+  it should "not equal Empty" in {
+    FullWithSinger == Empty should be (false)
   }
   
-  "Full" should "be defined" in {
-    box.isDefined should equal (true)
+  it should "be defined" in {
+    FullWithSinger.isDefined should be (true)
   }
   
-  "getOrElse" should "return the value if full" in {
-    box.getOrElse("Edith Piaf") should equal (JacquesBrel)
+  "getOrElse" should "return the value" in {
+    FullWithSinger.getOrElse("Edith Piaf") should be (JacquesBrel)
   }
   
-  "map" should "return a full box" in {
-    box.map(s => s.length) should equal (Full(JacquesBrel.length))
+  "map" should "return a Full" in {
+    FullWithSinger map { _.length } should be (Full(JacquesBrel.length))
   }
   
   "flatMap" should "return a full box" in {
-    box.flatMap(s => Full(s.length)) should equal (Full(JacquesBrel.length))
+    FullWithSinger flatMap { s => Full(s.length) } should be (Full(JacquesBrel.length))
   }
   
-  "foreach" should "call a function on its value" in {
+  "foreach" should "call a function on Full's value" in {
     val test = mock[DummyTrait]
-    box.foreach(s => test.calculate(s))
+    FullWithSinger foreach { s => test.calculate(s) }
     
     verify (test) calculate(JacquesBrel)
   }
   
-  "toList" should "return a list with one entry" in {
-    box.toList should equal (List(JacquesBrel))
+  "toList" should "return a list with only Full's value" in {
+    FullWithSinger.toList should be (List(JacquesBrel))
   }
 }
