@@ -43,6 +43,10 @@ class FullTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     FullWithSinger.isDefined should be (true)
   }
   
+  "get" should "return the value" in {
+    FullWithSinger.get should be (JacquesBrel)
+  }
+  
   "getOrElse" should "return the value" in {
     FullWithSinger.getOrElse("Edith Piaf") should be (JacquesBrel)
   }
