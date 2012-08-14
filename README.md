@@ -24,7 +24,7 @@ The following snippet of code show a typical usage of Boite:
 
     import com.nummulus.boite._
 
-    val user: Box[User] = Box.wrap {
+    val user: Box[User] = Box wrap {
       SecurityManager.findUser("jacques")
     }
 
@@ -70,7 +70,7 @@ The following snippet shows the matchers that you can use, and a number of other
       }
 
       it should "be a failure" in {
-        val b = Box.wrap { "abc".toInt }
+        val b = Box wrap { "abc".toInt }
 
         b.getOrElse("nothing") should be ("nothing")
         b should be a (failure containing classOf[NumberFormatException] saying ("For input string:, "abc"))
