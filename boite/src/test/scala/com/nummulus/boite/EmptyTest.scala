@@ -35,6 +35,13 @@ class EmptyTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     Empty.isDefined should be (false)
   }
   
+  "get" should "throw a NoSuchElementException" in {
+    val e = intercept[NoSuchElementException] {
+      Empty.get
+    }
+    e.getMessage should be ("Box does not contain a value")
+  }
+  
   "getOrElse" should "return the default value if empty" in {
     Empty.getOrElse(404) should be (404)
   }

@@ -42,6 +42,13 @@ class FailureTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     FailureWithThrowable.isDefined should be (false)
   }
   
+  "get" should "throw a NoSuchElementException" in {
+    val e = intercept[NoSuchElementException] {
+      FailureWithThrowable.get
+    }
+    e.getMessage should be ("Box does not contain a value")
+  }
+  
   "getOrElse" should "return the default value on Failure" in {
     FailureWithThrowable.getOrElse(404) should be (404)
   }
