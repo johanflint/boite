@@ -73,7 +73,7 @@ The following snippet shows the matchers that you can use, and a number of other
         val b = Box wrap { "abc".toInt }
 
         b.getOrElse("nothing") should be ("nothing")
-        b should be a (failure containing classOf[NumberFormatException] saying ("For input string:, "abc"))
+        b should be a (failure containing classOf[NumberFormatException] saying ("For input string:", "abc"))
       }
     }
 
