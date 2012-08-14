@@ -32,6 +32,13 @@ sealed abstract class Box[+A] {
   def isDefined: Boolean = !isEmpty
   
   /**
+   * Returns the value of the box.
+   * 
+   * @throws Predef.NoSuchElementException if the option is empty
+   */
+  def get: A
+  
+  /**
    * Returns the value of the box if it's full, else the specified default.
    */
   def getOrElse[B >: A](default: => B): B = default
@@ -118,6 +125,8 @@ object Box {
 final case class Full[+A](value: A) extends Box[A] {
   override def isEmpty = false
   
+  override def get: A = value
+  
   override def getOrElse[B >: A](default: => B): B = value
   
   override def map[B](f: A => B): Box[B] = Full(f(value))
@@ -131,6 +140,8 @@ final case class Full[+A](value: A) extends Box[A] {
 
 private[boite] sealed abstract class BoiteVide extends Box[Nothing] {
   override def isEmpty = true
+  
+  override def get: Nothing = throw new NoSuchElementException("Box does not contain a value")
   
   override def getOrElse[B >: Nothing](default: => B): B = default
 }
