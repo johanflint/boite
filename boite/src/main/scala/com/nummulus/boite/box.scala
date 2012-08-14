@@ -41,7 +41,7 @@ sealed abstract class Box[+A] {
   /**
    * Returns the value of the box if it's full, else the specified default.
    */
-  def getOrElse[B >: A](default: => B): B = default
+  def getOrElse[B >: A](default: => B): B
   
   /**
    * Applies a function to the value of the box if it's full and returns a
