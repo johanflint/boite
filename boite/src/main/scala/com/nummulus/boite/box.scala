@@ -95,6 +95,12 @@ sealed abstract class Box[+A] {
 
 object Box {
   /**
+   * Implicitly converts a Box to an Iterable.
+   * This is needed, for instance to be able to flatten a List[Box[_]].
+   */
+  implicit def box2Iterable[A](b: Box[A]): Iterable[A] = b.toList
+  
+  /**
    * A Box factory which converts a scala.Option to a Box.
    */
   def apply[A](o: Option[A]): Box[A] = o match {

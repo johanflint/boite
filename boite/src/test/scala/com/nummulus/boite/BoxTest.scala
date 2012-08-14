@@ -24,6 +24,7 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class BoxTest extends FlatSpec with ShouldMatchers {
   val GilbertBecaud = "Gilbert Bécaud"
+  val JeanFerrat = "Jean Ferrat"
   val NotSupported = "not supported"
   val Exception = new UnsupportedOperationException(NotSupported)
   val Error = new AssertionError
@@ -48,6 +49,7 @@ class BoxTest extends FlatSpec with ShouldMatchers {
     }
   }
   
+  
   behavior of "Box.apply"
   
   it should "accept an empty Option and return Empty" in {
@@ -56,5 +58,17 @@ class BoxTest extends FlatSpec with ShouldMatchers {
   
   it should "accept a full Option and return Full" in {
     Box(Some(GilbertBecaud)) should be (Full(GilbertBecaud))
+  }
+  
+  
+  behavior of "Box as an Iterable"
+  
+  it should "be converted implicitly" in {
+    val iterable: Iterable[String] = Full(GilbertBecaud)
+  }
+  
+  it should "support flatten when used in a collection" in {
+    val list: List[Box[String]] = List(Full(GilbertBecaud), Empty, Failure(Exception), Full(JeanFerrat))
+    list.flatten should be (List(GilbertBecaud, JeanFerrat))
   }
 }
