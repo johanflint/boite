@@ -157,7 +157,6 @@ sealed case class Failure(exception: Throwable) extends BoiteVide {
   
   override final def equals(other: Any): Boolean = (this, other) match {
     case (Failure(x), Failure(a)) => (x) == (a)
-    case (x, y: AnyRef) => x eq y
     case _ => false
   }
   
