@@ -15,16 +15,14 @@ Add a dependency to `boite`. The Maven dependency looks like this:
     <dependency>
       <groupId>com.nummulus</groupId>
       <artifactId>boite</artifactId>
-      <version>???</version>
+      <version>0.2.0</version>
     </dependency>
-
-Instead of `???`, you need to fill in the latest version number.
 
 The following snippet of code show a typical usage of Boite:
 
     import com.nummulus.boite._
 
-    val user: Box[User] = Box.wrap {
+    val user: Box[User] = Box wrap {
       SecurityManager.findUser("jacques")
     }
 
@@ -42,11 +40,9 @@ If you use ScalaTest, you can add a test-scope dependency to `boite-scalatest`. 
     <dependency>
       <groupId>com.nummulus</groupId>
       <artifactId>boite-scalatest</artifactId>
-      <version>???</version>
+      <version>0.2.0</version>
       <scope>test</scope>
     </dependency>
-
-Instead of `???`, you need to fill in the latest version number.
 
 The following snippet shows the matchers that you can use, and a number of other ways Boite can be used:
 
@@ -70,10 +66,10 @@ The following snippet shows the matchers that you can use, and a number of other
       }
 
       it should "be a failure" in {
-        val b = Box.wrap { "abc".toInt }
+        val b = Box wrap { "abc".toInt }
 
         b.getOrElse("nothing") should be ("nothing")
-        b should be a (failure containing classOf[NumberFormatException] saying ("For input string:, "abc"))
+        b should be a (failure containing classOf[NumberFormatException] saying ("For input string:", "abc"))
       }
     }
 
