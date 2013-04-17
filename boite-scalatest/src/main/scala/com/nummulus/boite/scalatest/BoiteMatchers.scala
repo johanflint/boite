@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.nummulus
-package boite
-package scalatest
+package com.nummulus.boite.scalatest
 
-import org.scalatest.matchers.BePropertyMatcher
-import org.scalatest.matchers.BePropertyMatchResult
 import org.scalatest.matchers.BeMatcher
+import org.scalatest.matchers.BePropertyMatchResult
+import org.scalatest.matchers.BePropertyMatcher
 import org.scalatest.matchers.MatchResult
+
+import com.nummulus.boite._
 
 object BoiteMatchers {
   val full    = new FullBePropertyMatcher
