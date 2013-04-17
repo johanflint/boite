@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package com.nummulus
-package boite
+package com.nummulus.boite
 
 sealed abstract class Box[+A] {
   self =>
