@@ -16,7 +16,7 @@
 
 package com.nummulus.boite.scalatest
 
-import org.scalatest.TestFailedException
+import org.scalatest.exceptions.TestFailedException
 import org.scalatest.matchers.ShouldMatchers
 
 import com.nummulus.boite._

@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.nummulus</groupId>
-	<artifactId>boite-parent</artifactId>
+	<artifactId>boite-parent_2.10</artifactId>
 	<version>0.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -29,7 +29,7 @@
 	</scm>
 
 	<properties>
-		<scala.version>2.9.0</scala.version>
+		<scala.version>2.10</scala.version>
 		<maven-scala-plugin.version>3.0.1</maven-scala-plugin.version>
 		<maven-source-plugin.version>2.1.2</maven-source-plugin.version>
 		<maven.compiler.source>1.6</maven.compiler.source>
@@ -37,7 +37,7 @@
 		<encoding>UTF-8</encoding>
 
 		<!-- Test dependencies -->
-		<scalatest.version>1.6.1</scalatest.version>
+		<scalatest.version>1.9.1</scalatest.version>
 	</properties>
 
 	<modules>
@@ -113,7 +113,7 @@
 		<dependency>
 			<groupId>nl.jqno.equalsverifier</groupId>
 			<artifactId>equalsverifier</artifactId>
-			<version>1.1.1</version>
+			<version>1.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
