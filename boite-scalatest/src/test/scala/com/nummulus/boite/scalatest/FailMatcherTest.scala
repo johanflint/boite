@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package com.nummulus
-package boite
-package scalatest
+package com.nummulus.boite.scalatest
+
+import org.junit.runner.RunWith
+import org.scalatest.FlatSpec
+import org.scalatest.junit.JUnitRunner
+
+import com.nummulus.boite._
 
 import BoiteMatchers._
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.FlatSpec
 
 @RunWith(classOf[JUnitRunner])
 class FailMatcherTest extends FlatSpec with BoxMatcherTestTrait {

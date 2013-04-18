@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.nummulus
-package boite
+package com.nummulus.boite
 
-import org.scalatest.FlatSpec
 import org.junit.runner.RunWith
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
+import org.scalatest.matchers.ShouldMatchers
+
 import nl.jqno.equalsverifier.EqualsVerifier
 import nl.jqno.equalsverifier.Warning
 
