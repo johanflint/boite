@@ -1,7 +1,7 @@
 Boite
 =====
 
-Boite is a scala utility class that will help you eliminate NullPointerExceptions. It is an alternative to Scala's Option and to Lift's Box.
+Boite is a Scala 2.10 utility class that will help you eliminate NullPointerExceptions. It is an alternative to Scala's Option and to Lift's Box.
 
 It defines a class `Box[T]` that can have three values: Empty, Full, or Failure. Also, it contains special matchers for use in unit tests written with ScalaTest.
 
@@ -15,7 +15,7 @@ Add a dependency to `boite`. The Maven dependency looks like this:
     <dependency>
       <groupId>com.nummulus</groupId>
       <artifactId>boite</artifactId>
-      <version>0.2.0</version>
+      <version>0.3.0</version>
     </dependency>
 
 The following snippet of code show a typical usage of Boite:
@@ -40,7 +40,7 @@ If you use ScalaTest, you can add a test-scope dependency to `boite-scalatest`. 
     <dependency>
       <groupId>com.nummulus</groupId>
       <artifactId>boite-scalatest</artifactId>
-      <version>0.2.0</version>
+      <version>0.3.0</version>
       <scope>test</scope>
     </dependency>
 
@@ -123,7 +123,7 @@ We would like to thank the [Lift](http://liftweb.net/) team for coming up with B
 Legal talk
 ----------
 
-Copyright 2012 Nummulus
+Copyright 2012-2013 Nummulus
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 

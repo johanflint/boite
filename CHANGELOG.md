@@ -1,6 +1,13 @@
 Boîte changelog
 ===============
 
+0.3.0
+-----
+_April 2013_
+
+* Upgraded to Scala 2.10 (BTE-25)
+
+
 0.2.0
 -----
 _August 2012_
